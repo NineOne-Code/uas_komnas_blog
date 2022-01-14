@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:html' as html;
 
 import 'package:flutter/material.dart';
@@ -65,10 +66,12 @@ class MenuController extends GetxController {
 
   void setBlogPost({String? byCategory, String? bySearch}) {
     if (byCategory != null && byCategory.isNotEmpty) {
+      _rawBlogPosts.value = [];
       _rawBlogPosts.value = blogPosts
           .where((element) => element.category!.contains(byCategory))
           .toList();
     } else if (bySearch != null && bySearch.isNotEmpty) {
+      _rawBlogPosts.value = [];
       _rawBlogPosts.value = blogPosts
           .where((element) =>
               element.title!.toLowerCase().contains(bySearch.toLowerCase()))

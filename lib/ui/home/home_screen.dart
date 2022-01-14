@@ -19,6 +19,10 @@ class HomeScreen extends StatelessWidget {
                   Get.find<MenuController>().getBlogPosts.length,
                   (index) => BlogPostCard(
                     blog: Get.find<MenuController>().getBlogPosts[index],
+                    key: Key(Get.find<MenuController>()
+                        .getBlogPosts[index]
+                        .id!
+                        .toString()),
                   ),
                 ),
               )),
