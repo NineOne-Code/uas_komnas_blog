@@ -34,6 +34,7 @@ class _BlogPostCardState extends State<BlogPostCard> {
         params: const YoutubePlayerParams(
           loop: true,
           showFullscreenButton: true,
+          autoPlay: false,
         ),
       );
     }
