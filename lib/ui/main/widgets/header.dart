@@ -11,7 +11,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MenuController _controller = Get.put(MenuController());
+    final MenuController _controller = Get.find<MenuController>();
     return Container(
       width: double.infinity,
       color: kDarkBlackColor,

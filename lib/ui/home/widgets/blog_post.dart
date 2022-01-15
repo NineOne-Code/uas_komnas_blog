@@ -63,12 +63,6 @@ class _BlogPostCardState extends State<BlogPostCard> {
                     widget.blog.asset!['url']!,
                     fit: BoxFit.cover,
                   ),
-            // child:
-            //     (widget.blog.asset!['type'] as String).contains('video')
-            //         ? _videoPlayerController!.value.isInitialized
-            //             ? VideoPlayer(_videoPlayerController!)
-            //             : const SizedBox()
-            //         : Image.asset(widget.blog.asset!['url']!),
           ),
           const SizedBox(
             height: kDefaultPadding,
@@ -117,11 +111,10 @@ class _BlogPostCardState extends State<BlogPostCard> {
           Obx(() => Row(
                 children: [
                   TextButton(
-                    onPressed: () {
-                      Get.to(() => PDFScreen(
-                            asset: widget.blog.asset!['pdf']!,
-                          ));
-                    },
+                    onPressed: () => Get.find<MenuController>().readMorePDF(
+                      asset: widget.blog.asset!['pdf']!,
+                      blogId: widget.blog.id!,
+                    ),
                     child: Container(
                       padding:
                           const EdgeInsets.only(bottom: kDefaultPadding / 4),
