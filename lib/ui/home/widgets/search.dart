@@ -16,16 +16,24 @@ class Search extends StatelessWidget {
         onChanged: (value) {
           Get.find<MenuController>().setBlogPost(bySearch: value);
         },
+        cursorColor: kPrimaryColor,
         decoration: InputDecoration(
-            hintText: 'Cari Judul',
-            suffixIcon: Padding(
-              padding: const EdgeInsets.all(kDefaultPadding / 2),
-              child: SvgPicture.asset('icons/feather_search.svg'),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(kDefaultPadding / 2),
-              borderSide: const BorderSide(color: greyColor),
-            )),
+          hintText: 'Cari Judul',
+          suffixIcon: Padding(
+            padding: const EdgeInsets.all(kDefaultPadding / 2),
+            child: SvgPicture.asset('icons/feather_search.svg'),
+          ),
+          focusColor: kPrimaryColor,
+          hoverColor: kPrimaryColor.withOpacity(.7),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(kDefaultPadding / 2),
+            borderSide: const BorderSide(color: kDarkBlackColor),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(kDefaultPadding / 2),
+            borderSide: const BorderSide(color: greyColor),
+          ),
+        ),
       ),
     );
   }

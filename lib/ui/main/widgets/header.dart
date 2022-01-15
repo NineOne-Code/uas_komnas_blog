@@ -34,7 +34,32 @@ class Header extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                      SvgPicture.asset('icons/logo.svg'),
+                      Row(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(right: 5),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                width: 2,
+                                color: kPrimaryColor.withOpacity(.8),
+                              )),
+                            ),
+                            child: const Text('NineOne',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w100,
+                                    letterSpacing: 3)),
+                          ),
+                          const Text('Blog',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: kPrimaryColor,
+                                fontWeight: FontWeight.w900,
+                              )),
+                        ],
+                      ),
                       const Spacer(),
                       if (Responsive.isDesktop(context)) const WebMenu(),
                       const Spacer(),
