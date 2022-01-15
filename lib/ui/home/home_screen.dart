@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uas_komnas_blog/commons/commons.dart';
@@ -9,6 +11,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MenuController _controller = Get.find<MenuController>();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -16,13 +19,10 @@ class HomeScreen extends StatelessWidget {
           flex: 2,
           child: Obx(() => Column(
                 children: List.generate(
-                  Get.find<MenuController>().getBlogPosts.length,
+                  _controller.getBlogPosts.length,
                   (index) => BlogPostCard(
-                    blog: Get.find<MenuController>().getBlogPosts[index],
-                    key: Key(Get.find<MenuController>()
-                        .getBlogPosts[index]
-                        .id!
-                        .toString()),
+                    blog: _controller.getBlogPosts[index],
+                    key: Key(_controller.getBlogPosts[index].id!.toString()),
                   ),
                 ),
               )),
@@ -40,12 +40,16 @@ class HomeScreen extends StatelessWidget {
                   height: kDefaultPadding,
                 ),
                 Categories(
-                  categories: Get.find<MenuController>().getCategoris(),
+                  categories: _controller.getCategories(),
                 ),
-                // SizedBox(
-                //   height: kDefaultPadding,
-                // ),
-                // RecentPosts(),
+                const SizedBox(
+                  height: kDefaultPadding,
+                ),
+                Obx(
+                  () => _controller.getRecentPost != null
+                      ? RecentPosts(blog: _controller.getRecentPost!)
+                      : const SizedBox(),
+                ),
               ],
             ),
           ),

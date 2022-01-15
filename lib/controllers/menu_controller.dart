@@ -5,10 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uas_komnas_blog/models/models.dart';
 import 'package:uas_komnas_blog/services/services.dart';
+import 'package:uas_komnas_blog/ui/pdf/pdf.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class MenuController extends GetxController {
   final RxInt _selectedIndex = 0.obs;
+  final RxInt _recentBlogPost = LocalStorage().getRecentPost().obs;
   final RxList<BlogModels> _rawBlogPosts = blogPosts.obs;
   final RxList<int> _likes = LocalStorage().getLikes().obs;
 
@@ -17,7 +20,7 @@ class MenuController extends GetxController {
   List<int>? get likes => _likes;
   List<String> get menuItems => ["Blog"];
 
-  List<CategoryModel> getCategoris() {
+  List<CategoryModel> getCategories() {
     List<CategoryModel> _list = [];
     Set<String> _rawSet = {...getBlogPosts.map((e) => e.category!).toList()};
     for (var item in _rawSet) {
@@ -29,6 +32,12 @@ class MenuController extends GetxController {
     }
     return _list;
   }
+
+  BlogModels? get getRecentPost => blogPosts
+          .where((element) => element.id == _recentBlogPost.value)
+          .isEmpty
+      ? null
+      : blogPosts.where((element) => element.id == _recentBlogPost.value).first;
 
   void openOrCloseDrawer(GlobalKey<ScaffoldState> scafoldkey) {
     if (scafoldkey.currentState != null) {
@@ -52,6 +61,16 @@ class MenuController extends GetxController {
   void dislikePost(int bolgId) {
     LocalStorage().dislikePost(blogId: bolgId);
     _likes.value = LocalStorage().getLikes();
+  }
+
+  void setRecentPost(int blogId) {
+    LocalStorage().setRecentPost(blogId: blogId);
+    _recentBlogPost.value = LocalStorage().getRecentPost();
+  }
+
+  void readMorePDF({required String asset, required int blogId}) {
+    setRecentPost(blogId);
+    Get.to(() => PDFScreen(asset: asset));
   }
 
   void downloadPdf({required String paths, required String title}) {
@@ -79,5 +98,10 @@ class MenuController extends GetxController {
     } else {
       _rawBlogPosts.value = blogPosts;
     }
+  }
+
+  String getThumbnail({required String youtubeUrl}) {
+    String videoId = YoutubePlayerController.convertUrlToId(youtubeUrl)!;
+    return YoutubePlayerController.getThumbnail(videoId: videoId);
   }
 }

@@ -18,17 +18,19 @@ class LocalStorage {
     });
   }
 
+  //* Feature Like
+
   void likePost({required int blogId}) async {
     List<int> _list = getLikes();
     _list.add(blogId);
-    print(_list);
+
     await _pref?.setString(KeyStorage.likes, _list.toString());
   }
 
   void dislikePost({required int blogId}) async {
     List<int> _list = getLikes();
     _list.remove(blogId);
-    print(_list);
+
     await _pref?.setString(KeyStorage.likes, _list.toString());
   }
 
@@ -49,9 +51,23 @@ class LocalStorage {
       _pref?.remove(KeyStorage.likes);
     }
   }
+
+  //* Feature Recent
+
+  void setRecentPost({required int blogId}) async {
+    await _pref?.setString(KeyStorage.recent, blogId.toString());
+  }
+
+  int getRecentPost() {
+    if (_pref != null && _pref!.containsKey(KeyStorage.recent)) {
+      return jsonDecode(_pref!.getString(KeyStorage.recent)!);
+    } else {
+      return 0;
+    }
+  }
 }
 
 class KeyStorage {
   static const String likes = 'likes';
-  static const String post = 'post';
+  static const String recent = 'recent';
 }

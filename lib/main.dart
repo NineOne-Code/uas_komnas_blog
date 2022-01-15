@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:uas_komnas_blog/binding.dart';
 import 'package:uas_komnas_blog/commons/commons.dart';
 import 'package:uas_komnas_blog/services/services.dart';
 import 'package:uas_komnas_blog/ui/main/main.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      initialBinding: MainBinding(),
       title: 'Blog UAS Komnas',
       theme: ThemeData(
         primaryColor: kPrimaryColor,
