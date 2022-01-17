@@ -23,6 +23,7 @@ class MainScreen extends StatelessWidget {
                 child: HomeScreen(),
               ),
             ),
+            const Footer(),
           ],
         ),
       ),
